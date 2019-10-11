@@ -61,7 +61,8 @@
                 },
 		        {
 		            field: 'sessionId',
-		            title: '会话编号'
+		            title: '会话编号',
+					width: '280px'
 		        },
 		        {
 		            field: 'loginName',
@@ -86,7 +87,8 @@
 		        },
 		        {
 		            field: 'os',
-		            title: '操作系统'
+		            title: '操作系统',
+					width: '80px'
 		        },
 		        {
 		            field: 'status',
@@ -103,12 +105,14 @@
 		        {
 		            field: 'startTimestamp',
 		            title: '登录时间',
-		            sortable: true
+		            sortable: true,
+					width: '150px'
 		        },
 		        {
 		            field: 'lastAccessTime',
 		            title: '最后访问时间',
-		            sortable: true
+		            sortable: true,
+					width: '150px'
 		        },
 		        {
 		            title: '操作',
@@ -120,6 +124,7 @@
 		        }]
 		    };
 		    $.table.init(options);
+			$.table.colresizable();//表头可拖拽宽度
 		});
 
 		// 单条强退

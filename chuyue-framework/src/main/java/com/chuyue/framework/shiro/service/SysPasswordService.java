@@ -5,6 +5,8 @@ import javax.annotation.PostConstruct;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,7 +24,6 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import cn.hutool.core.lang.Console;
 
 /**
  * 登录密码方法
@@ -32,6 +33,7 @@ import cn.hutool.core.lang.Console;
 @Component
 public class SysPasswordService
 {
+    private static final Logger logger = LoggerFactory.getLogger(SysPasswordService.class);
     public final static String CHUYUE_KEY = "$CHUYUE_KEY_9527$";
 
     @Autowired
@@ -117,7 +119,7 @@ public class SysPasswordService
             cipher.init(Cipher.ENCRYPT_MODE, keySpec);
             return bytesToHexString(cipher.doFinal(encode.getBytes("UTF-8")));
         } catch (Exception e) {
-            Console.log("Can not encode the string " + encode + " to AES!", e);
+            logger.info("Can not encode the string " + encode + " to AES!",e);
             return null;
         }
     }
@@ -143,7 +145,7 @@ public class SysPasswordService
 
             return new String(cipher.doFinal(hexStringToBytes(decode)));
         } catch (Exception e) {
-            Console.log("Can not decode the AES bytes to string!", e);
+            logger.info("Can not decode the AES bytes to string!",e);
             return null;
         }
     }

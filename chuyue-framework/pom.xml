@@ -93,13 +93,6 @@
 			<artifactId>jna-platform</artifactId>
 		</dependency>
 
-		<!-- 集成的工具类包    详情可访问 :(https://hutool.cn) -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
-			<version>4.6.6</version>
-		</dependency>
-
     </dependencies>
     
 </project>

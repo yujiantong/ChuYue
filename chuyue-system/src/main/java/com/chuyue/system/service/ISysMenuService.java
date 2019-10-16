@@ -128,4 +128,11 @@ public interface ISysMenuService
      * @return 结果
      */
     public String checkMenuNameUnique(SysMenu menu);
+    /**
+     * 根据业务编码查询信息
+     *
+     * @param businessCode 业务编码
+     * @return 菜单信息
+     */
+    public SysMenu selectPermsByCode(String businessCode);
 }

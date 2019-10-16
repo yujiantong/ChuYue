@@ -392,4 +392,15 @@ public class SysMenuServiceImpl implements ISysMenuService
     {
         return getChildList(list, t).size() > 0 ? true : false;
     }
+    /**
+     * 根据业务编码查询信息
+     *
+     * @param businessCode 业务编码
+     * @return 菜单信息
+     */
+    public SysMenu selectPermsByCode(String businessCode)
+    {
+        SysMenu info = menuMapper.selectPermsByCode(businessCode);
+        return info;
+    }
 }

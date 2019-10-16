@@ -35,6 +35,9 @@ public class BaseEntity implements Serializable
     /** 备注 */
     private String remark;
 
+    /** 业务编码 */
+    private String businessCode;
+
     /** 请求参数 */
     private Map<String, Object> params;
 
@@ -105,6 +108,15 @@ public class BaseEntity implements Serializable
             params = new HashMap<>();
         }
         return params;
+    }
+    public String getBusinessCode()
+    {
+        return businessCode;
+    }
+
+    public void setBusinessCode(String businessCode)
+    {
+        this.businessCode = businessCode;
     }
 
     public void setParams(Map<String, Object> params)

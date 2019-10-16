@@ -209,7 +209,7 @@
 	            <artifactId>chuyue-common</artifactId>
 	            <version>${chuyue.version}</version>
 	        </dependency>
-	        
+
         </dependencies>
     </dependencyManagement>
 

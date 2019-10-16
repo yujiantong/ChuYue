@@ -121,4 +121,12 @@ public interface SysMenuMapper
      * @return 结果
      */
     public SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
+    /**
+     * 根据业务编码查询信息
+     *
+     * @param businessCode 业务编码
+     * @return 菜单信息
+     */
+    public SysMenu selectPermsByCode(@Param("businessCode") String businessCode);
+
 }

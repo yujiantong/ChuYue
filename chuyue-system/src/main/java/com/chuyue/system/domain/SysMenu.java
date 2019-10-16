@@ -196,6 +196,7 @@ public class SysMenu extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("businessCode", getBusinessCode())
             .toString();
     }
 }

@@ -2,6 +2,7 @@ package com.chuyue.common.core.page;
 
 import com.chuyue.common.constant.Constants;
 import com.chuyue.common.utils.ServletUtils;
+import net.sf.json.JSONObject;
 
 /**
  * 表格数据处理
@@ -27,4 +28,5 @@ public class TableSupport
     {
         return getPageDomain();
     }
+
 }

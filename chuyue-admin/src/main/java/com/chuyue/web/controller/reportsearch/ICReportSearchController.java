@@ -8,6 +8,7 @@ import com.chuyue.common.enums.BusinessType;
 import com.chuyue.common.utils.poi.ExcelUtil;
 import com.chuyue.system.domain.SysLogininfor;
 import com.chuyue.system.domain.SysMenu;
+import com.chuyue.system.service.ICReportSearchService;
 import com.chuyue.system.service.ISysLogininforService;
 import com.chuyue.system.service.ISysMenuService;
 import net.sf.json.JSONObject;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * 系统访问记录
@@ -26,39 +29,62 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/reportsearch")
-public class ICReportSearchController extends BaseController
-{
+public class ICReportSearchController extends BaseController {
+    private static final String QUERY_CONF     = "select * from cy_query_conf where f_report_code";//配置报表信息的信息表
+    private static final String F_SQLTEXT      = "f_sqltext";//对应的sql字段
+    private static final String SQL_VALUE      = "SQL_VALUE";//sql变量
+    private static final String REPORT_CODE    = "REPORT_CODE";//前台传输过来的业务编码key
+    private static final String REPORT_FILTER  = "REPORT_FILTER";//过滤参数key
     private String prefix = "";
     @Autowired
-    private ISysLogininforService logininforService;
+    private ICReportSearchService searchService;
     @Autowired
     private ISysMenuService menuService;
 
     @RequiresPermissions("reportsearch")
     @GetMapping()
-    public String reportsearch(HttpServletRequest request)
-    {
+    public String reportsearch(HttpServletRequest request) {
         String viewurl = "";
         String url = request.getParameter("url");
-        prefix = url.substring(1,url.length());
+        prefix = url.substring(1, url.length());
         String businessCode = request.getParameter("code");
-        if(!"".equals(businessCode)){
+        if (!"".equals(businessCode)) {
             SysMenu sysMenu = menuService.selectPermsByCode(businessCode);
             viewurl = sysMenu.getBusinessCode();
         }
 
-        return prefix + "/"+viewurl;
+        return prefix + "/" + viewurl;
     }
 
     @RequiresPermissions("reportsearch")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(@RequestParam(name="CONDITION")String CONDITION)
-    {
+    public TableDataInfo list(@RequestParam(name = "CONDITION") String CONDITION) {
         JSONObject jsonobject = JSONObject.fromObject(CONDITION);
+        List<Map<String,Object>> list = null;
+        //查询表 cy_query_conf 中业务编码对应的sqltext
+        String code = jsonobject.getString(REPORT_CODE);
+        String sqltext = QUERY_CONF+" = '"+code+"'";
+        Map<String,Object> conf = searchService.selectQueryConf(sqltext);
         startPage();
-        SysLogininfor logininfor = new SysLogininfor();
-        List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
+        if(!"".equals(conf.get(F_SQLTEXT))){
+            String report_sqltext = conf.get(F_SQLTEXT).toString()+" where 1=1 ";
+            //处理过滤条件
+            String filters = jsonobject.getString(REPORT_FILTER);
+            String[] arr = filters.split(",");
+            StringBuffer buffer = new StringBuffer();
+            for(int i=0;i<arr.length-1;i++){
+                String filterName = "";
+                if(jsonobject.containsKey(arr[i])){
+                    filterName = arr[i];
+                }
+                if(!"".equals(filterName)){
+                    buffer.append("and").append(" ").append(filterName).append("=").append(""+jsonobject.getString(filterName)).append(" ");
+                }
+            }
+            jsonobject.put(SQL_VALUE,report_sqltext+buffer);
+            list = searchService.selectReportList(jsonobject);
+        }
         return getDataTable(list);
     }
 
@@ -66,29 +92,11 @@ public class ICReportSearchController extends BaseController
     @RequiresPermissions("reportsearch")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysLogininfor logininfor)
-    {
-        List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-        ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
-        return util.exportExcel(list, "登陆日志");
-    }
-
-    @RequiresPermissions("reportsearch")
-    @Log(title = "登陆日志", businessType = BusinessType.DELETE)
-    @PostMapping("/remove")
-    @ResponseBody
-    public AjaxResult remove(String ids)
-    {
-        return toAjax(logininforService.deleteLogininforByIds(ids));
-    }
-
-    @RequiresPermissions("reportsearch")
-    @Log(title = "登陆日志", businessType = BusinessType.CLEAN)
-    @PostMapping("/clean")
-    @ResponseBody
-    public AjaxResult clean()
-    {
-        logininforService.cleanLogininfor();
-        return success();
+    public AjaxResult export(@RequestParam(name = "CONDITION") String CONDITION) {
+        /*JSONObject jsonobject = JSONObject.fromObject(CONDITION);
+        List<Object> list = searchService.selectReportList(jsonobject);
+        ExcelUtil<Object> util = new ExcelUtil<Object>(Object.class);
+        return util.exportExcel(list, "登陆日志");*/
+        return null;
     }
 }

@@ -65,12 +65,12 @@
 		        rememberSelected: true,
 		        columns: [
 		        {
-		            field: 'infoId',
+		            field: 'info_id',
 		            title: '访问编号',
 					width: '50px'
 		        },
 		        {
-		            field: 'loginName',
+		            field: 'login_name',
 		            title: '登录名称',
 		            sortable: true
 		        },
@@ -79,7 +79,7 @@
 		            title: '登录地址'
 		        },
 		        {
-		            field: 'loginLocation',
+		            field: 'login_location',
 		            title: '登录地点'
 		        },
 		        {
@@ -103,7 +103,7 @@
 		            title: '操作信息'
 		        },
 		        {
-		            field: 'loginTime',
+		            field: 'login_time',
 		            title: '登录时间',
 		            sortable: true
 		        }]
@@ -120,7 +120,8 @@
 		};
 		function searchcondition(){//参数统一封装
 			var condition={
-				"REPORT_CODE":"LOGININFOR"
+				"REPORT_CODE":"LOGININFOR",//业务编码（必须和页面同名）
+				"REPORT_FILTER":"ipaddr,loginName,status,startTime,endTime"//查询过滤条件必须以此格式传参
 			}
 			return condition;
 		}

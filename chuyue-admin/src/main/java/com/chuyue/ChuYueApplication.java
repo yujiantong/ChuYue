@@ -17,7 +17,7 @@ public class ChuYueApplication
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(ChuYueApplication.class, args);
         System.out.println("/////////////////////////////////////\n");
-        System.out.println("//    启动成功》》》》》》》》》》》》   //\n");
+        System.out.println("//    Start Success  > > > > > >   //\n");
         System.out.println("/////////////////////////////////////\n");
     }
 }

@@ -2,69 +2,70 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chuyue.system.mapper.ICCyQueryConfMapper">
+<mapper namespace="com.chuyue.system.mapper.CyQueryConfMapper">
     
     <resultMap type="CyQueryConf" id="CyQueryConfResult">
-        <result property="fPkey"    column="f_pkey"    />
-        <result property="fReportCode"    column="f_report_code"    />
-        <result property="fDesc"    column="f_desc"    />
-        <result property="fSqltext"    column="f_sqltext"    />
-        <result property="fCreatetime"    column="f_createTime"    />
+        <result property="reportId"    column="report_id"    />
+        <result property="reportCode"    column="report_code"    />
+        <result property="reportDesc"    column="report_desc"    />
+        <result property="sqlText"    column="sql_text"    />
+        <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <sql id="selectCyQueryConfVo">
-        select f_pkey, f_report_code, f_desc, f_sqltext, f_createTime from cy_query_conf
+        select report_id, report_code, report_desc, sql_text, create_time from cy_query_conf
     </sql>
+
     <select id="selectCyQueryConfList" parameterType="CyQueryConf" resultMap="CyQueryConfResult">
         <include refid="selectCyQueryConfVo"/>
         <where>  
-            <if test="fReportCode != null  and fReportCode != ''"> and f_report_code = #{fReportCode}</if>
-            <if test="fDesc != null  and fDesc != ''"> and f_desc = #{fDesc}</if>
-            <if test="fSqltext != null  and fSqltext != ''"> and f_sqltext = #{fSqltext}</if>
-            <if test="fCreatetime != null  and fCreatetime != ''"> and f_createTime = #{fCreatetime}</if>
+            <if test="reportCode != null  and reportCode != ''"> and report_code like concat('%', #{reportCode}, '%')</if>
+            <if test="reportDesc != null  and reportDesc != ''"> and report_desc = #{reportDesc}</if>
+            <if test="sqlText != null  and sqlText != ''"> and sql_text = #{sqlText}</if>
+            <if test="createTime != null  and createTime != ''"> and create_time = #{createTime}</if>
         </where>
     </select>
     
     <select id="selectCyQueryConfById" parameterType="Long" resultMap="CyQueryConfResult">
         <include refid="selectCyQueryConfVo"/>
-        where f_pkey = #{fPkey}
+        where report_id = #{reportId}
     </select>
         
-    <insert id="insertCyQueryConf" parameterType="CyQueryConf" useGeneratedKeys="true" keyProperty="fPkey">
+    <insert id="insertCyQueryConf" parameterType="CyQueryConf" useGeneratedKeys="true" keyProperty="reportId">
         insert into cy_query_conf
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="fReportCode != null  and fReportCode != ''">f_report_code,</if>
-            <if test="fDesc != null  and fDesc != ''">f_desc,</if>
-            <if test="fSqltext != null  and fSqltext != ''">f_sqltext,</if>
-            <if test="fCreatetime != null  and fCreatetime != ''">f_createTime,</if>
+            <if test="reportCode != null  and reportCode != ''">report_code,</if>
+            <if test="reportDesc != null  and reportDesc != ''">report_desc,</if>
+            <if test="sqlText != null  and sqlText != ''">sql_text,</if>
+            <if test="createTime != null  and createTime != ''">create_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="fReportCode != null  and fReportCode != ''">#{fReportCode},</if>
-            <if test="fDesc != null  and fDesc != ''">#{fDesc},</if>
-            <if test="fSqltext != null  and fSqltext != ''">#{fSqltext},</if>
-            <if test="fCreatetime != null  and fCreatetime != ''">#{fCreatetime},</if>
+            <if test="reportCode != null  and reportCode != ''">#{reportCode},</if>
+            <if test="reportDesc != null  and reportDesc != ''">#{reportDesc},</if>
+            <if test="sqlText != null  and sqlText != ''">#{sqlText},</if>
+            <if test="createTime != null  and createTime != ''">#{createTime},</if>
          </trim>
     </insert>
 
     <update id="updateCyQueryConf" parameterType="CyQueryConf">
         update cy_query_conf
         <trim prefix="SET" suffixOverrides=",">
-            <if test="fReportCode != null  and fReportCode != ''">f_report_code = #{fReportCode},</if>
-            <if test="fDesc != null  and fDesc != ''">f_desc = #{fDesc},</if>
-            <if test="fSqltext != null  and fSqltext != ''">f_sqltext = #{fSqltext},</if>
-            <if test="fCreatetime != null  and fCreatetime != ''">f_createTime = #{fCreatetime},</if>
+            <if test="reportCode != null  and reportCode != ''">report_code = #{reportCode},</if>
+            <if test="reportDesc != null  and reportDesc != ''">report_desc = #{reportDesc},</if>
+            <if test="sqlText != null  and sqlText != ''">sql_text = #{sqlText},</if>
+            <if test="createTime != null  and createTime != ''">create_time = #{createTime},</if>
         </trim>
-        where f_pkey = #{fPkey}
+        where report_id = #{reportId}
     </update>
 
     <delete id="deleteCyQueryConfById" parameterType="Long">
-        delete from cy_query_conf where f_pkey = #{fPkey}
+        delete from cy_query_conf where report_id = #{reportId}
     </delete>
 
     <delete id="deleteCyQueryConfByIds" parameterType="String">
-        delete from cy_query_conf where f_pkey in 
-        <foreach item="fPkey" collection="array" open="(" separator="," close=")">
-            #{fPkey}
+        delete from cy_query_conf where report_id in 
+        <foreach item="reportId" collection="array" open="(" separator="," close=")">
+            #{reportId}
         </foreach>
     </delete>
     

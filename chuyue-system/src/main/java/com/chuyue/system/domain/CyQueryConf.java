@@ -6,127 +6,75 @@ import com.chuyue.common.annotation.Excel;
 import com.chuyue.common.core.domain.BaseEntity;
 
 /**
- * 【请填写功能名称】对象 cy_query_conf
- *
+ * 报表配置实体对象 cy_query_conf
+ * 
  * @author chuyue
- * @date 2019-10-25
+ * @date 2019-10-28
  */
 public class CyQueryConf extends BaseEntity
 {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** 主键 */
-	private Long fPkey;
+    /** 主键 */
+    private Long reportId;
 
-	/** 业务编码 */
-	@Excel(name = "业务编码")
-	private String fReportCode;
+    /** 业务编码 */
+    @Excel(name = "业务编码")
+    private String reportCode;
 
-	/** 描述 */
-	@Excel(name = "描述")
-	private String fDesc;
+    /** 描述 */
+    @Excel(name = "描述")
+    private String reportDesc;
 
-	/** 查询sql */
-	@Excel(name = "查询sql")
-	private String fSqltext;
+    /** 查询sql */
+    @Excel(name = "查询sql")
+    private String sqlText;
 
-	/** 创建时间 */
-	@Excel(name = "创建时间")
-	private String fCreatetime;
+    public void setReportId(Long reportId) 
+    {
+        this.reportId = reportId;
+    }
 
-	public void setFPkey(Long fPkey)
-	{
-		this.fPkey = fPkey;
-	}
+    public Long getReportId() 
+    {
+        return reportId;
+    }
+    public void setReportCode(String reportCode) 
+    {
+        this.reportCode = reportCode;
+    }
 
-	public Long getFPkey()
-	{
-		return fPkey;
-	}
-	public void setFReportCode(String fReportCode)
-	{
-		this.fReportCode = fReportCode;
-	}
+    public String getReportCode() 
+    {
+        return reportCode;
+    }
+    public void setReportDesc(String reportDesc) 
+    {
+        this.reportDesc = reportDesc;
+    }
 
-	public String getFReportCode()
-	{
-		return fReportCode;
-	}
-	public void setFDesc(String fDesc)
-	{
-		this.fDesc = fDesc;
-	}
+    public String getReportDesc() 
+    {
+        return reportDesc;
+    }
+    public void setSqlText(String sqlText) 
+    {
+        this.sqlText = sqlText;
+    }
 
-	public String getFDesc()
-	{
-		return fDesc;
-	}
-	public void setFSqltext(String fSqltext)
-	{
-		this.fSqltext = fSqltext;
-	}
+    public String getSqlText() 
+    {
+        return sqlText;
+    }
 
-	public String getFSqltext()
-	{
-		return fSqltext;
-	}
-	public void setFCreatetime(String fCreatetime)
-	{
-		this.fCreatetime = fCreatetime;
-	}
-
-	public String getFCreatetime()
-	{
-		return fCreatetime;
-	}
-	public Long getfPkey() {
-		return fPkey;
-	}
-
-	public void setfPkey(Long fPkey) {
-		this.fPkey = fPkey;
-	}
-
-	public String getfReportCode() {
-		return fReportCode;
-	}
-
-	public void setfReportCode(String fReportCode) {
-		this.fReportCode = fReportCode;
-	}
-
-	public String getfDesc() {
-		return fDesc;
-	}
-
-	public void setfDesc(String fDesc) {
-		this.fDesc = fDesc;
-	}
-
-	public String getfSqltext() {
-		return fSqltext;
-	}
-
-	public void setfSqltext(String fSqltext) {
-		this.fSqltext = fSqltext;
-	}
-
-	public String getfCreatetime() {
-		return fCreatetime;
-	}
-
-	public void setfCreatetime(String fCreatetime) {
-		this.fCreatetime = fCreatetime;
-	}
-
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-				.append("fPkey", getFPkey())
-				.append("fReportCode", getFReportCode())
-				.append("fDesc", getFDesc())
-				.append("fSqltext", getFSqltext())
-				.append("fCreatetime", getFCreatetime())
-				.toString();
-	}
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("reportId", getReportId())
+            .append("reportCode", getReportCode())
+            .append("reportDesc", getReportDesc())
+            .append("sqlText", getSqlText())
+            .append("createTime", getCreateTime())
+            .toString();
+    }
 }

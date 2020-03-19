@@ -89,7 +89,7 @@ public class SysDeptController extends BaseController
         SysDept dept = deptService.selectDeptById(deptId);
         if (StringUtils.isNotNull(dept) && 100L == deptId)
         {
-            dept.setParentName("无");
+            dept.setParentName("Nothing");
         }
         mmap.put("dept", dept);
         return prefix + "/edit";

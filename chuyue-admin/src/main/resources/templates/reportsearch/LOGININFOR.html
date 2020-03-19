@@ -24,9 +24,9 @@
 							</li>
 							<li class="select-time">
 								<label>登录时间： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="startTime"/>
 								<span>-</span>
-								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="endTime"/>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="searchreport()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-	            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="monitor:logininfor:export">
+	            <a class="btn btn-warning" onclick="$.reporttable.exportExcel()" shiro:hasPermission="monitor:logininfor:export">
 		            <i class="fa fa-download"></i> 导出
 		        </a>
 	        </div>
@@ -120,8 +120,8 @@
 		};
 		function searchcondition(){//参数统一封装
 			var condition={
-				"REPORT_CODE":"LOGININFOR",//业务编码（必须和页面同名）
-				"REPORT_FILTER":"ipaddr,loginName,status,startTime,endTime"//查询过滤条件必须以此格式传参
+					"REPORT_CODE":"LOGININFOR",//业务编码（必须和页面同名）
+				"REPORT_FILTER":"ipaddr,login_name,status,startTime,endTime"//查询过滤条件必须以此格式传参
 			}
 			return condition;
 		}

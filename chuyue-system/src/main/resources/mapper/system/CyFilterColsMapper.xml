@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chuyue.system.mapper.CyFilterColsMapper">
+    
+    <resultMap type="CyFilterCols" id="CyFilterColsResult">
+        <result property="id"    column="id"    />
+        <result property="col"    column="col"    />
+        <result property="colName"    column="col_name"    />
+        <result property="code"    column="code"    />
+        <result property="filter"    column="filter"    />
+        <result property="remarks"    column="remarks"    />
+    </resultMap>
+
+    <sql id="selectCyFilterColsVo">
+        select id, col, col_name, code, filter, remarks from cy_filter_cols
+    </sql>
+
+    <select id="selectCyFilterColsList" parameterType="CyFilterCols" resultMap="CyFilterColsResult">
+        <include refid="selectCyFilterColsVo"/>
+        <where>  
+            <if test="col != null  and col != ''"> and col = #{col}</if>
+            <if test="colName != null  and colName != ''"> and col_name like concat('%', #{colName}, '%')</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="filter != null  and filter != ''"> and filter = #{filter}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+        </where>
+    </select>
+    
+    <select id="selectCyFilterColsById" parameterType="Long" resultMap="CyFilterColsResult">
+        <include refid="selectCyFilterColsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCyFilterCols" parameterType="CyFilterCols" useGeneratedKeys="true" keyProperty="id">
+        insert into cy_filter_cols
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="col != null  and col != ''">col,</if>
+            <if test="colName != null  and colName != ''">col_name,</if>
+            <if test="code != null  and code != ''">code,</if>
+            <if test="filter != null  and filter != ''">filter,</if>
+            <if test="remarks != null  and remarks != ''">remarks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="col != null  and col != ''">#{col},</if>
+            <if test="colName != null  and colName != ''">#{colName},</if>
+            <if test="code != null  and code != ''">#{code},</if>
+            <if test="filter != null  and filter != ''">#{filter},</if>
+            <if test="remarks != null  and remarks != ''">#{remarks},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCyFilterCols" parameterType="CyFilterCols">
+        update cy_filter_cols
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="col != null  and col != ''">col = #{col},</if>
+            <if test="colName != null  and colName != ''">col_name = #{colName},</if>
+            <if test="code != null  and code != ''">code = #{code},</if>
+            <if test="filter != null  and filter != ''">filter = #{filter},</if>
+            <if test="remarks != null  and remarks != ''">remarks = #{remarks},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCyFilterColsById" parameterType="Long">
+        delete from cy_filter_cols where id = #{id}
+    </delete>
+
+    <delete id="deleteCyFilterColsByIds" parameterType="String">
+        delete from cy_filter_cols where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

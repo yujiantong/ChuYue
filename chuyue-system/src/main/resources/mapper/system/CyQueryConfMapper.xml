@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectCyQueryConfVo"/>
         <where>  
             <if test="reportCode != null  and reportCode != ''"> and report_code like concat('%', #{reportCode}, '%')</if>
-            <if test="reportDesc != null  and reportDesc != ''"> and report_desc = #{reportDesc}</if>
+            <if test="reportDesc != null  and reportDesc != ''"> and report_desc like concat('%', #{reportDesc}, '%')</if>
             <if test="sqlText != null  and sqlText != ''"> and sql_text = #{sqlText}</if>
             <if test="createTime != null  and createTime != ''"> and create_time = #{createTime}</if>
         </where>

@@ -1,5 +1,6 @@
 package com.chuyue.common.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Map;
 import com.chuyue.common.core.text.StrFormatter;
@@ -394,5 +395,22 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             }
         }
         return sb.toString();
+    }
+    /**
+     * 字符串编码转换的实现方法
+     * @param str 待转换编码的字符串
+     * @param newCharset 目标编码
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static String changeCharset(String str, String newCharset)
+            throws UnsupportedEncodingException {
+        if (str != null) {
+            //用默认字符编码解码字符串。
+            byte[] bs = str.getBytes();
+            //用新的字符编码生成字符串
+            return new String(bs, newCharset);
+        }
+        return null;
     }
 }

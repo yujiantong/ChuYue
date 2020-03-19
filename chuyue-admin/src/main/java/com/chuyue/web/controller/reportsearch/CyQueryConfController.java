@@ -38,7 +38,7 @@ public class CyQueryConfController extends BaseController
     @GetMapping()
     public String queryconf()
     {
-        return prefix + "/queryconf";
+        return prefix + "/list";
     }
 
     /**
@@ -64,7 +64,7 @@ public class CyQueryConfController extends BaseController
     {
         List<CyQueryConf> list = cyQueryConfService.selectCyQueryConfList(cyQueryConf);
         ExcelUtil<CyQueryConf> util = new ExcelUtil<CyQueryConf>(CyQueryConf.class);
-        return util.exportExcel(list, "queryconf");
+        return util.exportExcel(list, "list");
     }
 
     /**

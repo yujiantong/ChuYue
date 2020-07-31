@@ -1715,11 +1715,28 @@
 				}
 			},
 			// 导出数据
-			exportExcel: function(formId) {
+			exportExcel: function(formId, tableId, data) {
 				$.modal.confirm("确定导出所有" + $.reporttable._option.modalName + "吗？", function() {
 					var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
 					$.modal.loading("正在导出数据，请稍后...");
-					$.post($.reporttable._option.exportUrl, $("#" + currentId).serializeArray(), function(result) {
+					var params = $.common.isEmpty(tableId) ? $.btTable.bootstrapTable('getOptions') : $("#" + tableId).bootstrapTable('getOptions');
+					var expsearch = $.common.formToJSON(currentId);
+					if($.common.isNotEmpty(data)){
+						$.each(data, function(key) {
+							expsearch[key] = data[key];
+						});
+					}
+					expsearch.pageSize = params.limit;
+					expsearch.pageNum =  params.offset / params.limit + 1;
+					expsearch.searchValue = params.expsearch;
+					expsearch.orderByColumn = params.sort;
+					expsearch.isAsc = params.order;
+					var condition = $.reporttable.condition;//拼装参数
+					$.each(condition, function(key) {
+						expsearch[key] = condition[key];
+					});
+					expsearch.CONDITION = JSON.stringify(expsearch);//将所有查询条件统一分装
+					$.post($.reporttable._option.exportUrl, expsearch, function(result) {
 						if (result.code == web_status.SUCCESS) {
 							window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
 						} else if (result.code == web_status.WARNING) {

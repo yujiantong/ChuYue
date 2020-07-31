@@ -14,7 +14,7 @@
 								<label>登录地址：</label><input type="text" name="ipaddr"/>
 							</li>
 							<li>
-								<label>登录名称：</label><input type="text" name="loginName"/>
+								<label>登录名称：</label><input type="text" name="login_name"/>
 							</li>
 							<li>
 								<label>登录状态：</label><select name="status" th:with="type=${@dict.getType('sys_common_status')}">
@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="btn-group-sm" id="toolbar" role="group">
-	            <a class="btn btn-warning" onclick="$.reporttable.exportExcel()" shiro:hasPermission="monitor:logininfor:export">
+	            <a class="btn btn-warning" onclick="exportExcel()">
 		            <i class="fa fa-download"></i> 导出
 		        </a>
 	        </div>
@@ -113,18 +113,26 @@
 		    $.reporttable.init(options);
 		    $.reporttable.colresizable();
 		});
+		//查询
 		function searchreport(){
 			var condition = searchcondition();
 			$.reporttable.beforeSearch(condition);//此方法必须在$.reporttable.search()之前
 			$.reporttable.search();
 		};
-		function searchcondition(){//参数统一封装
+		//参数封装
+		function searchcondition(){
 			var condition={
-					"REPORT_CODE":"LOGININFOR",//业务编码（必须和页面同名）
-				"REPORT_FILTER":"ipaddr,login_name,status,startTime,endTime"//查询过滤条件必须以此格式传参
+					"REPORT_CODE"  :"LOGININFOR",//业务编码（必须和页面同名）
+				    "REPORT_FILTER":"ipaddr,login_name,status,startTime,endTime"//查询过滤条件必须以此格式传参
 			}
 			return condition;
 		}
+		//导出
+		function exportExcel(){
+			var condition = searchcondition();
+			$.reporttable.beforeSearch(condition);
+			$.reporttable.exportExcel();
+		};
 	</script>
 </body>
 </html>

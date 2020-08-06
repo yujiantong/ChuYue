@@ -12,6 +12,7 @@ import com.chuyue.common.core.domain.AjaxResult;
 import com.chuyue.common.core.page.TableDataInfo;
 import com.chuyue.common.enums.BusinessType;
 import com.chuyue.common.exception.BusinessException;
+import com.chuyue.common.utils.sql.SqlUtil;
 import com.chuyue.system.domain.SysConfig;
 import com.chuyue.system.domain.SysMenu;
 import com.chuyue.system.service.DBService;
@@ -101,7 +102,7 @@ public class ICReportSearchController extends BaseController {
             
             String querysql = "select * from cy_show_cols where code=?";
             String code = jsonobject.get("REPORT_CODE").toString();
-            List<Map<String,Object>> list = dbService.QuerySql(DBUtils.ChageSql(querysql, new String[]{code}));
+            List<Map<String,Object>> list = dbService.QuerySql(SqlUtil.ChangeSql(querysql, new String[]{code}));
             for (int i = 0; i < list.size(); i++) {
             	JSONObject obj = JSONObject.fromObject(list.get(i));
             	//自定义标题别名

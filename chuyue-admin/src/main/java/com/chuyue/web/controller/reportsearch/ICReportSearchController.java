@@ -1,19 +1,13 @@
 package com.chuyue.web.controller.reportsearch;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
-import com.chuyue.common.annotation.Log;
 import com.chuyue.common.config.Global;
 import com.chuyue.common.core.controller.BaseController;
 import com.chuyue.common.core.domain.AjaxResult;
 import com.chuyue.common.core.page.TableDataInfo;
-import com.chuyue.common.enums.BusinessType;
 import com.chuyue.common.exception.BusinessException;
 import com.chuyue.common.utils.sql.SqlUtil;
-import com.chuyue.system.domain.SysConfig;
 import com.chuyue.system.domain.SysMenu;
 import com.chuyue.system.service.DBService;
 import com.chuyue.system.service.ICReportSearchService;
@@ -25,12 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.*;
 
 

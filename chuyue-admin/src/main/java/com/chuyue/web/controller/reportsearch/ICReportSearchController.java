@@ -18,8 +18,6 @@ import com.chuyue.system.domain.SysMenu;
 import com.chuyue.system.service.DBService;
 import com.chuyue.system.service.ICReportSearchService;
 import com.chuyue.system.service.ISysMenuService;
-import com.chuyue.web.controller.tool.DBUtils;
-
 import net.sf.json.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;

@@ -34,6 +34,10 @@
             <groupId>com.chuyue</groupId>
             <artifactId>chuyue-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.chuyue</groupId>
+            <artifactId>chuyue-system</artifactId>
+        </dependency>
 
     </dependencies>
 	

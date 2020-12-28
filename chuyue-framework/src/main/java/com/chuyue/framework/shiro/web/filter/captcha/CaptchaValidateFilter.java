@@ -63,11 +63,14 @@ public class CaptchaValidateFilter extends AccessControlFilter
         String code = String.valueOf(obj != null ? obj : "");
         if (StringUtils.isEmpty(validateCode) || !validateCode.equalsIgnoreCase(code))
         {
-            if(captchaEnabled){
+
+            //图形验证码开关，测试环境直接返回true
+            return true;
+            /*if(captchaEnabled){
                 return true;
             }else{
                 return false;
-            }
+            }*/
         }
         return true;
     }

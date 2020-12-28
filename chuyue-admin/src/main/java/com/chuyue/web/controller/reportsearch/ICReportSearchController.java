@@ -30,7 +30,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/reportsearch")
 public class ICReportSearchController extends BaseController {
-    private static final Logger log = LoggerFactory.getLogger(com.chuyue.common.utils.poi.ExcelUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(ICReportSearchController.class);
     private static final String QUERY_CONF     = "select * from cy_query_conf where report_code";//配置报表信息的信息表
     private static final String SQLTEXT      = "sql_text";//对应的sql字段
     private static final String REPORTDESC     = "report_desc";//对应的sql字段
@@ -106,7 +106,7 @@ public class ICReportSearchController extends BaseController {
 
     /**
      * 查询和导出通用方法
-     * @param jsonobject2
+     * @param jsonobject
      * @return
      */
     private Map<String,Object> selectReport(JSONObject jsonobject) {
